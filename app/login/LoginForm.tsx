@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Heading from "../components/Heading";
 import Input from "../components/inputs/Input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -67,7 +67,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
   }
 
   return (
-    <>
+    <Suspense>
       <Heading title="Sign in to E-Shop" />
       <Button
         outline
@@ -112,7 +112,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ currentUser }) => {
           Sign Up
         </Link>
       </p>
-    </>
+    </Suspense>
   );
 };
 

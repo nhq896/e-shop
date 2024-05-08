@@ -2,7 +2,7 @@
 
 import { useCart } from "@/hooks/useCart";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, Suspense } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { StripeElementsOptions, loadStripe } from "@stripe/stripe-js";
 import toast from "react-hot-toast";
@@ -71,31 +71,35 @@ const CheckoutClient = () => {
   }, []);
 
   return (
-    <div className="w-full">
-      {clientSecret && cartProducts && cartProducts?.length > 0 && (
-        <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm
-            clientSecret={clientSecret}
-            handleSetPaymentSuccess={handleSetPaymentSuccess}
-          />
-        </Elements>
-      )}
-      {isLoading && <div className="text-center">Loading Checkout...</div>}
-      {error && (
-        <div className="text-center text-rose-500">Sonething went wrong...</div>
-      )}
-      {!isLoading && paymentSuccess && (
-        <div className="flex flex-col items-center gap-4">
-          <div className="text-teal-500 text-center">Payment Success</div>
-          <div className="max-w-[220px] w-full">
-            <Button
-              label="View Your Orders"
-              onClick={() => router.push("/orders")}
+    <Suspense>
+      <div className="w-full">
+        {clientSecret && cartProducts && cartProducts?.length > 0 && (
+          <Elements options={options} stripe={stripePromise}>
+            <CheckoutForm
+              clientSecret={clientSecret}
+              handleSetPaymentSuccess={handleSetPaymentSuccess}
             />
+          </Elements>
+        )}
+        {isLoading && <div className="text-center">Loading Checkout...</div>}
+        {error && (
+          <div className="text-center text-rose-500">
+            Sonething went wrong...
           </div>
-        </div>
-      )}
-    </div>
+        )}
+        {!isLoading && paymentSuccess && (
+          <div className="flex flex-col items-center gap-4">
+            <div className="text-teal-500 text-center">Payment Success</div>
+            <div className="max-w-[220px] w-full">
+              <Button
+                label="View Your Orders"
+                onClick={() => router.push("/orders")}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    </Suspense>
   );
 };
 

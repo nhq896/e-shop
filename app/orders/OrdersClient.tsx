@@ -15,6 +15,7 @@ import ActionBtn from "@/app/components/ActionBtn";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import moment from "moment";
+import { Suspense } from "react";
 
 interface OrdersClientProps {
   orders: ExtendedOrder[];
@@ -143,26 +144,28 @@ const OrdersClient: React.FC<OrdersClientProps> = ({ orders }) => {
   ];
 
   return (
-    <div className="max-w-[1150px] m-auto text-xl">
-      <div className="mb-4 mt-8">
-        <Heading title="Your Orders" center />
+    <Suspense>
+      <div className="max-w-[1150px] m-auto text-xl">
+        <div className="mb-4 mt-8">
+          <Heading title="Your Orders" center />
+        </div>
+        <div style={{ height: 500, width: "95%" }}>
+          <DataGrid
+            disableColumnResize
+            disableRowSelectionOnClick
+            rows={rows}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: { page: 0, pageSize: 10 },
+              },
+            }}
+            pageSizeOptions={[10, 20]}
+            // checkboxSelection
+          />
+        </div>
       </div>
-      <div style={{ height: 500, width: "95%" }}>
-        <DataGrid
-          disableColumnResize
-          disableRowSelectionOnClick
-          rows={rows}
-          columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
-            },
-          }}
-          pageSizeOptions={[10, 20]}
-          // checkboxSelection
-        />
-      </div>
-    </div>
+    </Suspense>
   );
 };
 
