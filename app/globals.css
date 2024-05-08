@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* width */
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+button[data-testid="carousel-indicator"] {
+  height: 4px;
+  width: 36px;
+}
+
+button[data-testid="carousel-right-control"] span,
+button[data-testid="carousel-left-control"] span,
+button[data-testid="carousel-right-control"],
+button[data-testid="carousel-left-control"] {
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+button[data-testid="carousel-right-control"] span:hover,
+button[data-testid="carousel-left-control"] span:hover {
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}
