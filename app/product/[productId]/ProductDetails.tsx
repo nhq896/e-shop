@@ -143,10 +143,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           <span> {product.brand}</span>
         </div>
         <div className={product.inStock ? "text-teal-400" : "text-rose-400"}>
-          {(cartProduct.selectedImg.quantity > 0
-            ? "In stock"
-            : "Out of stock") ||
-            (product.inStock ? "In stock" : "Out of stock")}
+          {product.inStock ? "In stock" : "Out of stock"}
         </div>
         <Horizontal />
         <SetColor
@@ -157,6 +154,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         <Horizontal />
         <SetQuantity
           cartProduct={cartProduct}
+          inStock={product.inStock}
           handleQuantityIncrease={handleQuantityIncrease}
           handleQuantityDecrease={handleQuantityDecrease}
         />

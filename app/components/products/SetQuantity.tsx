@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 interface SetQuantityProps {
   cartCounter?: boolean;
   cartProduct: CartProductType;
+  inStock?: boolean;
   handleQuantityIncrease: () => void;
   handleQuantityDecrease: () => void;
 }
@@ -16,6 +17,7 @@ const btnStyles =
 const SetQuantity: React.FC<SetQuantityProps> = ({
   cartCounter,
   cartProduct,
+  inStock,
   handleQuantityIncrease,
   handleQuantityDecrease,
 }) => {
@@ -37,12 +39,15 @@ const SetQuantity: React.FC<SetQuantityProps> = ({
           <button
             onClick={handleQuantityIncrease}
             className={btnStyles}
-            disabled={cartProduct.quantity >= cartProduct.selectedImg.quantity}
+            disabled={
+              !inStock ||
+              cartProduct.quantity >= cartProduct.selectedImg.quantity
+            }
           >
             +
           </button>
         </div>
-        {true && (
+        {inStock && (
           <span
             className={`text-sm ${
               pathname === "/cart"
