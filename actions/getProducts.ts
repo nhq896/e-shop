@@ -6,7 +6,7 @@ export interface IProductParams {
   page?: number;
 }
 
-export const pageNum = 20;
+export const pageNum = 5;
 
 export default async function getProducts(params: IProductParams) {
   try {
